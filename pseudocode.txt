@@ -1,0 +1,95 @@
+	
+	 function reducedCostMatrix(cost_matrix, ncities)
+		lower_bound = 0
+		reduced_cost_matrix = cost_matrix
+		# Reduce each row to contain a zero
+		Find the minimum index in each row of the cost_matrix
+		for i from 0 to ncities
+			lower_bound += minimum index in row i
+			for j from 0 to ncities
+				if not infinity
+					reduce row index by minimum index in row i
+		
+		# Reduce each column that does not contain a zero to have a zero
+		Find the minimum index in each row of the cost_matrix
+		for i from 0 to ncities
+			if the minimum index is not 0
+				lower_bound += minimum index in column i
+				for j from 0 to ncities
+					if not infinity
+						reduce row index by minimum index in column i
+		return lower_bound, reduced_cost_matrix
+		
+	
+	function partialPathSearch(stack, ncities, best_sln)
+		bssf_lower_bound = best_sln[0]
+		bssf_sln = best_sln[1]
+		while stack not empty:
+			parent_lower_bound, parent_cost_matrix, parent_partial_sln = stack.pop()
+			if parent_lower_bound >= bssf_lower_bound
+				prune state
+			i = last node in parent_partial_sln
+			
+			for j from 0 to ncities
+				if i != j and j not in parent_partial_sln
+					child_lower_bound = parent_lower_bound
+					child_cost_matrix = parent_cost_matrix
+					child_partial_sln = parent_partial_sln
+					Add j to child_partial_sln
+					
+					child_lower_bound += path cost at i, j of parent_cost_matrix
+					
+					for k from 0 to ncities
+						Set row i equal to infinity
+					for k from 0 to ncities
+						Set column j equal to infinity
+					Set back edge (j,i) to infinity
+					
+					Find the minimum index in each row of the child_cost_matrix
+					for k from 0 to ncities
+						if the minimum index is not 0
+							child_lower_bound += minimum index in row k
+							for l from 0 to ncities
+								if not infinity
+									reduce row index by minimum index in row k
+					
+					Find the minimum index in each column of the child_cost_matrix
+					for k from 0 to ncities
+						if the minimum index is not 0
+							lower_bound += minimum index in column k
+							for l from 0 to ncities
+								if not infinity
+									reduce row index by minimum index in column k
+					
+					if length(child_partial_sln) == ncities
+						child_lower_bound += cost from the last node to node 0
+						if child_lower_bound < bssf_lower_bound
+							update bssf_lower_bound and bssf_sln
+						else if child_lower_bound < bssf_lower_bound
+							stack.push(child_lower_bound, child_cost_matrix, child_partial_sln)
+						else
+							prune state
+		return bssf_lower_bound, bssf_sln
+	
+	function branchAndBound()
+		Create cost_matrix 2D array
+		ncities = length(cities)
+		stack = []
+		
+		bssf_lower_bound, bssf_sln = defaultRandomTour()
+		best_sln = (bssf_lower_bound, bssf_sln)
+		
+		for i from 0 to ncities
+			for j from 0 to ncities
+				populate cost matrix
+		
+		lower_bound, reduced_cost_matrix = reducedCostMatrix(cost_matrix, ncities)
+		
+		partial_sln = [0]
+        stack.push(lower_bound, reduced_cost_matrix, partial_sln)
+		
+		bssf_lower_bound, p2 = partialPathSearch(stack, ncities, best_sln)
+		
+		add variables to results
+		return results
+					
